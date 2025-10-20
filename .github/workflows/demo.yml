@@ -24,3 +24,12 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
           date
+    
+    build-on-windows:
+      runs-on: windows-latest
+      steps:
+        - name: Run a multi-line script
+          run: |
+            echo Add other actions to build,
+            Get-Date
+            
