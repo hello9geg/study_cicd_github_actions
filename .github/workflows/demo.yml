@@ -6,6 +6,8 @@ jobs:
   build-on-linux: # 自定义job名称‘build-on-linux’
     runs-on: ubuntu-latest # 在哪个环境中运行
     steps: # 具体步骤
+      - name: 打印GitHub关于上下文的概念，示例：${{ github.repositoryUrl }}
+        run: echo ${{ github.repositoryUrl }}
       - name: pre checkout code 
         run: |
           pwd
