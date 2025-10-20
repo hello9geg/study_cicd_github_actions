@@ -6,10 +6,18 @@ jobs:
   build-on-linux: # 自定义job名称‘build-on-linux’
     runs-on: ubuntu-latest # 在哪个环境中运行
     steps: # 具体步骤
+      - name: pre checkout code 
+        run: |
+          pwd
+          ls -lh
       - name: checkout code
         uses: actions/checkout@v5
-      - name: 安装python-test组件依赖 # 步骤二名称
-        run: pip install pytest # 步骤二要执行的命令
-      - name: run pytest # 步骤三名称
-        run: pytest # 步骤三要执行的命令
+      - name: after checkout code 
+        run: |
+          pwd
+          ls -lh
+      - name: 安装python-test组件依赖
+        run: pip install pytest
+      - name: run pytest
+        run: pytest
         
