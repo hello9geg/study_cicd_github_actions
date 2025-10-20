@@ -1,4 +1,4 @@
-name: CI
+name: study-GitHub-actions
 
 on: workflow_dispatch # 自己手动执行触发
 
@@ -6,10 +6,8 @@ jobs:
   build-on-linux: # 自定义job名称‘build-on-linux’
     runs-on: ubuntu-latest # 在哪个环境中运行
     steps: # 具体步骤
-      - name: clone 仓库 # 步骤一名称
-        run: | # 具体步骤的工作
-          git clone https://github.com/hello9geg/study_cicd_github_actions
-          cd study_cicd_github_actions
+      - name: checkout code
+        uses: actions/checkout@v5
       - name: 安装python-test组件依赖 # 步骤二名称
         run: pip install pytest # 步骤二要执行的命令
       - name: run pytest # 步骤三名称
