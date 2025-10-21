@@ -4,9 +4,9 @@ name: study-GitHub-actions
 on:
   push:
     branches:
-      - 'main'  # 表示只有在main分支上进行push操作，才会激活以下job
+      - 'main'  # 表示只有在main分支上进行push操作，才会激活当前工作流
   schedule:
-    - cron: '/5 * * * *'  # 表示每隔5分钟执行一次当前工作流
+    - cron: '*/5 * * * *'   # 表示每隔5分钟执行一次当前工作流
 
 jobs:
   build-on-linux: # 自定义job名称‘build-on-linux’
