@@ -58,7 +58,7 @@ jobs:
       - name: 使用下载好的 artifact
         run: |
           pwd
-          ls -l
+          ls
           ./sha256.exe sha256.exe
 # ===========================用于演示：Workflow的Job-Artifacts的使用 结束==================================
 
