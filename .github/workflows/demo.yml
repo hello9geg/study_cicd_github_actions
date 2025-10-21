@@ -1,6 +1,6 @@
 name: study-GitHub-actions
 
-# ===========================用于演示：Workflow的触发-Events 开始==================================
+# ===========================用于演示：Workflow的触发-Events的使用 开始==================================
 # on:
 #   push:
 #     branches:
@@ -26,10 +26,11 @@ name: study-GitHub-actions
 #         run: pip install pytest
 #       - name: run pytest
 #         run: pytest
-# ===========================用于演示：Workflow的触发-Events 结束==================================
+# ===========================用于演示：Workflow的触发-Events的使用 结束==================================
 
 
-# ===========================用于演示：Workflow的Job-Artifacts 开始==================================
+
+# ===========================用于演示：Workflow的Job-Artifacts的使用 开始==================================
 on:
   push:
     branches:
@@ -45,4 +46,20 @@ jobs:
         run: pip install pyinstaller
       - name: 打包
         run: pyinstaller sha256.py -F
-# ===========================用于演示：Workflow的Job-Artifacts 结束==================================
+      - name: 上传 artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: sha256-windows-exe
+          path: dist/sha256.exe
+# ===========================用于演示：Workflow的Job-Artifacts的使用 结束==================================
+
+
+
+
+
+
+
+
+
+
+
