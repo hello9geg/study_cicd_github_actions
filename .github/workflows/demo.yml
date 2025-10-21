@@ -1,6 +1,6 @@
 name: study-GitHub-actions
 
-on: workflow_dispatch # 自己手动执行触发
+on: [workflow_dispatch, push] # 事件触发机制（手动执行，推送）注意：push操作在任何分支都会制动执行
 
 jobs:
   build-on-linux: # 自定义job名称‘build-on-linux’
