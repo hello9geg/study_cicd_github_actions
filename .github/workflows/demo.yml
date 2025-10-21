@@ -37,7 +37,7 @@ on:
       - 'main'  # 表示只有在main分支上进行push操作，才会激活当前工作流
 
 jobs:
-  build-on-windows: # 自定义job名称
+  build-and-upload: # 自定义job名称
     runs-on: windows-latest # 在哪个环境中运行
     steps: # 具体步骤
       - name: 迁出代码
@@ -51,6 +51,10 @@ jobs:
         with:
           name: sha256-windows-exe
           path: dist/sha256.exe
+  test-download-artifact: # 自定义job名称
+    runs-on: windows-latest
+    needs: build-and-upload # 需要build-and-upload执行完成后才能执行当前Job
+    steps:
       - name: 下载 artifact
         uses: actions/download-artifact@v5
         with:
