@@ -1,29 +1,48 @@
 name: study-GitHub-actions
 
-# on: [workflow_dispatch, push] # 指定多个事件触发机制（手动执行和推送）注意：此时的push操作在任何分支都会制动执行
+# ===========================用于演示：Workflow的触发-Events 开始==================================
+# on:
+#   push:
+#     branches:
+#       - 'main'  # 表示只有在main分支上进行push操作，才会激活当前工作流
+
+# jobs:
+#   build-on-linux: # 自定义job名称‘build-on-linux’
+#     runs-on: ubuntu-latest # 在哪个环境中运行
+#     steps: # 具体步骤
+#       - name: 打印GitHub关于上下文的概念，示例：${{ github.repositoryUrl }}
+#         run: echo ${{ github.repositoryUrl }}
+#       - name: pre checkout code 
+#         run: |
+#           pwd
+#           ls -lh
+#       - name: checkout code
+#         uses: actions/checkout@v5
+#       - name: after checkout code 
+#         run: |
+#           pwd
+#           ls -lh
+#       - name: 安装python-test组件依赖
+#         run: pip install pytest
+#       - name: run pytest
+#         run: pytest
+# ===========================用于演示：Workflow的触发-Events 结束==================================
+
+
+# ===========================用于演示：Workflow的Job-Artifacts 开始==================================
 on:
   push:
     branches:
       - 'main'  # 表示只有在main分支上进行push操作，才会激活当前工作流
 
 jobs:
-  build-on-linux: # 自定义job名称‘build-on-linux’
-    runs-on: ubuntu-latest # 在哪个环境中运行
+  build-on-windows: # 自定义job名称
+    runs-on: windows-latest # 在哪个环境中运行
     steps: # 具体步骤
-      - name: 打印GitHub关于上下文的概念，示例：${{ github.repositoryUrl }}
-        run: echo ${{ github.repositoryUrl }}
-      - name: pre checkout code 
-        run: |
-          pwd
-          ls -lh
-      - name: checkout code
+      - name: 迁出代码
         uses: actions/checkout@v5
-      - name: after checkout code 
-        run: |
-          pwd
-          ls -lh
-      - name: 安装python-test组件依赖
-        run: pip install pytest
-      - name: run pytest
-        run: pytest
-        
+      - name: 安装python-install依赖
+        run: pip install pyinstaller
+      - name: 打包
+        run: pyinstaller sha256.py -F
+# ===========================用于演示：Workflow的Job-Artifacts 结束==================================
