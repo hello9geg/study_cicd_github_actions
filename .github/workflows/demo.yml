@@ -51,6 +51,20 @@ jobs:
         with:
           name: sha256-windows-exe
           path: dist/sha256.exe
+  build-on-linux: # 自定义job名称
+    runs-on: linux-latest # 在哪个环境中运行
+    steps: # 具体步骤
+      - name: 迁出代码
+        uses: actions/checkout@v5
+      - name: 安装python-install依赖
+        run: pip install pyinstaller
+      - name: 打包
+        run: pyinstaller sha256.py -F
+      - name: 上传 artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: sha256-linux
+          path: dist/sha256
 # ===========================用于演示：Workflow的Job-Artifacts的使用 结束==================================
 
 
