@@ -1,6 +1,10 @@
 name: study-GitHub-actions
 
-on: [workflow_dispatch, push] # 事件触发机制（手动执行，推送）注意：push操作在任何分支都会制动执行
+# on: [workflow_dispatch, push] # 指定多个事件触发机制（手动执行和推送）注意：此时的push操作在任何分支都会制动执行
+on:
+  push:
+    branches:
+      - 'main'  # 表示只有在main分支上进行push操作，才会激活以下job
 
 jobs:
   build-on-linux: # 自定义job名称‘build-on-linux’
