@@ -124,16 +124,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "打印测试环境中的DB_USER"
-        run: echo "打印测试环境中的DB_USER == $DB_USER"
+        run: echo "打印测试环境中的DB_USER == ${{ env.DB_USER }}"
       - name: "打印测试环境中的DB_DB_PASSWORD"
-        run: echo "打印测试环境中的DB_DB_PASSWORD == $DB_PASSWORD"
+        run: echo "打印测试环境中的DB_DB_PASSWORD == ${{ env.DB_PASSWORD }}"
   deploy-prod:
     runs-on: ubuntu-latest
     steps:
       - name: "打印生产环境中的DB_USER"
-        run: echo "打印生产环境中的DB_USER == $DB_USER"
+        run: echo "打印生产环境中的DB_USER == ${{ env.DB_USER }}"
       - name: "打印生产环境中的DB_PASSWORD"
-        run: echo "打印生产环境中的DB_PASSWORD == $DB_PASSWORD"
+        run: echo "打印生产环境中的DB_PASSWORD == ${{ env.DB_PASSWORD }}"
 
 # ===========================用于演示：环境变量和密钥的使用 结束==================================
 
