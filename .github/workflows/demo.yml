@@ -31,48 +31,57 @@ name: study-GitHub-actions
 
 
 # ===========================用于演示：Workflow的Job-Artifacts的使用 开始==================================
-on:
-  push:
-    branches:
-      - 'main'  # 表示只有在main分支上进行push操作，才会激活当前工作流
+# on:
+#   push:
+#     branches:
+#       - 'main'  # 表示只有在main分支上进行push操作，才会激活当前工作流
 
-jobs:
-  build-and-upload: # 自定义job名称
-    runs-on: windows-latest # 在哪个环境中运行
-    steps: # 具体步骤
-      - name: 迁出代码
-        uses: actions/checkout@v5
-      - name: 安装python-install依赖
-        run: pip install pyinstaller
-      - name: 打包
-        run: pyinstaller sha256.py -F
-      - name: 上传 artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: sha256-windows-exe
-          path: dist/sha256.exe
-  test-download-artifact: # 自定义job名称
-    runs-on: windows-latest
-    needs: build-and-upload # 需要build-and-upload执行完成后才能执行当前Job
-    steps:
-      - name: 下载 artifact
-        uses: actions/download-artifact@v5
-        with:
-          name: sha256-windows-exe
-      - name: 使用下载好的 artifact
-        run: |
-          pwd
-          ls
-          ./sha256.exe sha256.exe
+# jobs:
+#   build-and-upload: # 自定义job名称
+#     runs-on: windows-latest # 在哪个环境中运行
+#     steps: # 具体步骤
+#       - name: 迁出代码
+#         uses: actions/checkout@v5
+#       - name: 安装python-install依赖
+#         run: pip install pyinstaller
+#       - name: 打包
+#         run: pyinstaller sha256.py -F
+#       - name: 上传 artifacts
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: sha256-windows-exe
+#           path: dist/sha256.exe
+#   test-download-artifact: # 自定义job名称
+#     runs-on: windows-latest
+#     needs: build-and-upload # 需要build-and-upload执行完成后才能执行当前Job
+#     steps:
+#       - name: 下载 artifact
+#         uses: actions/download-artifact@v5
+#         with:
+#           name: sha256-windows-exe
+#       - name: 使用下载好的 artifact
+#         run: |
+#           pwd
+#           ls
+#           ./sha256.exe sha256.exe
 # ===========================用于演示：Workflow的Job-Artifacts的使用 结束==================================
 
 
-
-
-
-
-
-
+# ===========================用于演示：环境变量和密钥的使用 开始==================================
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  build-and-upload:
+    runs-on: windows-latest
+    steps:
+      - name: 迁出代码
+        uses: actions/checkout@v5
+      - name: 打印默认eve信息
+        run: env
+      - name: 打印具体的env信息
+        run: echo ${GITHUB_REPOSITORY}
 
 
 
