@@ -81,7 +81,7 @@ jobs:
       - name: 打印默认eve信息
         run: env
       - name: 打印具体的env信息
-        run: echo ${{ GITHUB_REPOSITORY }}
+        run: echo ${{ env.GITHUB_REPOSITORY }}
 
 
 
