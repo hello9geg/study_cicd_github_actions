@@ -102,16 +102,38 @@ name: study-GitHub-actions
 #           First_Name: Mona
 
 # 演示GitHub密钥的使用（1、需要先在代码仓库中自定义密钥 2、然后把自定义密钥注入到环境变量中）
+# on:
+#   workflow_dispatch
+# env:
+#   DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+# jobs:
+#   test-secrets:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: "打印自定义密钥"
+#         run: echo "自定义密钥== $DB_PASSWORD "
+
+# 演示在不用环境中密钥的使用（1、需要先在代码仓库中自定义环境 2、在自定义环境中添加自定义密钥）
 on:
   workflow_dispatch
 env:
+  DB_USER: ${{ secrets.DB_USER }}
   DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 jobs:
-  test-secrets:
+  deploy-test:
     runs-on: ubuntu-latest
     steps:
-      - name: "打印自定义密钥"
-        run: echo "自定义密钥== $DB_PASSWORD "
+      - name: "打印测试环境中的DB_USER"
+        run: echo "打印测试环境中的DB_USER == $DB_USER"
+      - name: "打印测试环境中的DB_DB_PASSWORD"
+        run: echo "打印测试环境中的DB_DB_PASSWORD == $DB_PASSWORD"
+  deploy-prod:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "打印生产环境中的DB_USER"
+        run: echo "打印生产环境中的DB_USER == $DB_USER"
+      - name: "打印生产环境中的DB_PASSWORD"
+        run: echo "打印生产环境中的DB_PASSWORD == $DB_PASSWORD"
 
 # ===========================用于演示：环境变量和密钥的使用 结束==================================
 
