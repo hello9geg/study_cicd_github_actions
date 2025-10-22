@@ -70,20 +70,20 @@ name: study-GitHub-actions
 # ===========================用于演示：环境变量和密钥的使用 开始==================================
 
 # 演示打印GitHub-actions自带变量
-on:
-  push:
-    branches:
-      - 'main'
-jobs:
-  build-and-upload:
-    runs-on: linux-latest
-    steps:
-      - name: 迁出代码
-        uses: actions/checkout@v5
-      - name: 打印默认eve信息
-        run: env
-      - name: 打印具体的env信息
-        run: echo $GITHUB_REPOSITORY
+# on:
+#   push:
+#     branches:
+#       - 'main'
+# jobs:
+#   build-and-upload:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: 迁出代码
+#         uses: actions/checkout@v5
+#       - name: 打印默认eve信息
+#         run: env
+#       - name: 打印具体的env信息
+#         run: echo $GITHUB_REPOSITORY
 
 # 演示自定义环境变量并且打印
 # on:
@@ -100,6 +100,18 @@ jobs:
 #         run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
 #         env:
 #           First_Name: Mona
+
+# 演示GitHub密钥的使用（1、需要先在代码仓库中自定义密钥 2、然后把自定义密钥注入到环境变量中）
+on:
+  workflow_dispatch
+env:
+  DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+jobs:
+  test-secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "打印自定义密钥"
+        run: echo "自定义密钥== $DB_PASSWORD "
 
 # ===========================用于演示：环境变量和密钥的使用 结束==================================
 
