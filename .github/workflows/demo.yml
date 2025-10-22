@@ -68,34 +68,35 @@ name: study-GitHub-actions
 
 
 # ===========================用于演示：环境变量和密钥的使用 开始==================================
-# on:
-#   push:
-#     branches:
-#       - 'main'
-# jobs:
-#   build-and-upload:
-#     runs-on: linux-latest
-#     steps:
-#       - name: 迁出代码
-#         uses: actions/checkout@v5
-#       - name: 打印默认eve信息
-#         run: env
-#       - name: 打印具体的env信息
-#         run: echo ${{ env.GITHUB_REPOSITORY }}
 on:
-  workflow_dispatch
-env:
-  DAY_OF_WEEK: Monday
+  push:
+    branches:
+      - 'main'
 jobs:
-  greeting_job:
-    runs-on: ubuntu-latest
-    env:
-      Greeting: Hello
+  build-and-upload:
+    runs-on: linux-latest
     steps:
-      - name: "Say Hello Mona it's Monday"
-        run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
-        env:
-          First_Name: Mona
+      - name: 迁出代码
+        uses: actions/checkout@v5
+      - name: 打印默认eve信息
+        run: env
+      - name: 打印具体的env信息
+        run: echo $GITHUB_REPOSITORY
+
+# on:
+#   workflow_dispatch
+# env:
+#   DAY_OF_WEEK: Monday
+# jobs:
+#   greeting_job:
+#     runs-on: ubuntu-latest
+#     env:
+#       Greeting: Hello
+#     steps:
+#       - name: "Say Hello Mona it's Monday"
+#         run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
+#         env:
+#           First_Name: Mona
 
 # ===========================用于演示：环境变量和密钥的使用 结束==================================
 
