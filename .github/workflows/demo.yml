@@ -74,14 +74,14 @@ on:
       - 'main'
 jobs:
   build-and-upload:
-    runs-on: windows-latest
+    runs-on: linux-latest
     steps:
       - name: 迁出代码
         uses: actions/checkout@v5
       - name: 打印默认eve信息
         run: env
       - name: 打印具体的env信息
-        run: echo ${GITHUB_REPOSITORY}
+        run: echo ${{ GITHUB_REPOSITORY }}
 
 
 
