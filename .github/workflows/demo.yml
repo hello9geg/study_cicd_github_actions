@@ -68,6 +68,8 @@ name: study-GitHub-actions
 
 
 # ===========================用于演示：环境变量和密钥的使用 开始==================================
+
+# 演示打印GitHub-actions自带变量
 on:
   push:
     branches:
@@ -83,6 +85,7 @@ jobs:
       - name: 打印具体的env信息
         run: echo $GITHUB_REPOSITORY
 
+# 演示自定义环境变量并且打印
 # on:
 #   workflow_dispatch
 # env:
