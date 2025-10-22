@@ -116,24 +116,23 @@ name: study-GitHub-actions
 # 演示在不用环境中密钥的使用（1、需要先在代码仓库中自定义环境 2、在自定义环境中添加自定义密钥）
 on:
   workflow_dispatch
-env:
-  DB_USER: ${{ secrets.DB_USER }}
-  DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 jobs:
   deploy-test:
+    environment: test
     runs-on: ubuntu-latest
     steps:
       - name: "打印测试环境中的DB_USER"
-        run: echo "打印测试环境中的DB_USER == ${{ env.DB_USER }}"
+        run: echo "打印测试环境中的DB_USER == ${{ secrets.DB_USER }}"
       - name: "打印测试环境中的DB_DB_PASSWORD"
-        run: echo "打印测试环境中的DB_DB_PASSWORD == ${{ env.DB_PASSWORD }}"
+        run: echo "打印测试环境中的DB_DB_PASSWORD == ${{ secrets.DB_PASSWORD }}"
   deploy-prod:
     runs-on: ubuntu-latest
+    environment: prod
     steps:
       - name: "打印生产环境中的DB_USER"
-        run: echo "打印生产环境中的DB_USER == ${{ env.DB_USER }}"
+        run: echo "打印生产环境中的DB_USER == ${{ secrets.DB_USER }}"
       - name: "打印生产环境中的DB_PASSWORD"
-        run: echo "打印生产环境中的DB_PASSWORD == ${{ env.DB_PASSWORD }}"
+        run: echo "打印生产环境中的DB_PASSWORD == ${{ secrets.DB_USER }}"
 
 # ===========================用于演示：环境变量和密钥的使用 结束==================================
 
