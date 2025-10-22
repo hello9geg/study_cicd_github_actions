@@ -117,8 +117,8 @@ name: study-GitHub-actions
 on:
   workflow_dispatch
 jobs:
-  deploy-test:
-    environment: test
+  deploy-dev:
+    environment: dev
     runs-on: ubuntu-latest
     steps:
       - name: "打印测试环境中的DB_USER"
@@ -132,7 +132,7 @@ jobs:
       - name: "打印生产环境中的DB_USER"
         run: echo "打印生产环境中的DB_USER == ${{ secrets.DB_USER }}"
       - name: "打印生产环境中的DB_PASSWORD"
-        run: echo "打印生产环境中的DB_PASSWORD == ${{ secrets.DB_USER }}"
+        run: echo "打印生产环境中的DB_PASSWORD == ${{ secrets.DB_PASSWORD }}"
 
 # ===========================用于演示：环境变量和密钥的使用 结束==================================
 
