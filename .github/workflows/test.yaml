@@ -79,11 +79,37 @@ on:
 # ================演示step的状态检查-结束=======================
 
 # ================演示matrix的使用-开始=======================
+# jobs:
+#   test-code:
+#     runs-on: ubuntu-latest
+#     strategy: # matrix的核心配置节点
+#       matrix: 
+#         py-version: ['3.8','3.9','3.10']  # 定义matrix变量(定义多个python版本)
+#     steps:
+#       - name: checkout code
+#         uses: actions/checkout@v5
+#       - uses: actions/setup-python@v6  # 使用自定义版本的python版本
+#         with:
+#             python-version: ${{ matrix.py-version }} # 引用matrix变量
+#       - name: install requirements
+#         run: pip install -r requirements.txt
+#       - name: run py test
+#         run: pytest --cov-report html:htmlcov --cov-report term --cov=project test
+#         id: run-py-test
+#       - name: upload test reports
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: test-report-${{ matrix.py-version }}
+#           path: htmlcov/
+# ================演示matrix的使用-结束=======================
+
+# ================演示matrix的使用(多层循环)-开始=======================
 jobs:
   test-code:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os-version }}
     strategy: # matrix的核心配置节点
       matrix: 
+        os-version: ['ubuntu-22.04','ubuntu-24.04'] # 定义matrix变量(定义多个OS版本), 外层循环是os-version，内层循环是py-version
         py-version: ['3.8','3.9','3.10']  # 定义matrix变量(定义多个python版本)
     steps:
       - name: checkout code
@@ -99,6 +125,6 @@ jobs:
       - name: upload test reports
         uses: actions/upload-artifact@v4
         with:
-          name: test-report-${{ matrix.py-version }}
+          name: test-report-${{ matrix.os-version }}-${{ matrix.py-version }}
           path: htmlcov/
-# ================演示matrix的使用-结束=======================
+# ================演示matrix的使用(多层循环)-结束=======================
