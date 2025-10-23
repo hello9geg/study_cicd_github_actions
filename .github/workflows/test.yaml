@@ -31,6 +31,34 @@ on:
 
 
 # ================演示Job的状态检查-开始=======================
+# jobs:
+#   test-code:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: checkout code
+#         uses: actions/checkout@v5
+#       - name: install requirements
+#         run: pip install -r requirements.txt
+#       - name: run py test
+#         run: pytest --cov-report html:htmlcov --cov-report term --cov=project test
+#       - name: upload test reports
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: test-report
+#           path: htmlcov/
+  
+#   deploy:
+#     runs-on: ubuntu-latest
+#     if: ${{ always() }} # 表示无论test-code是否执行完成和是否执行成功，当前Job都会执行
+#     needs: test-code  #  表示test-code任务执行结束并且执行成功，deploy任务才会去执行
+#     steps:
+#       - name: checkout code
+#         uses: actions/checkout@v5
+#       - name: deploy code
+#         run: echo "deploy........."
+# ================演示Job的状态检查-结束=======================
+
+# ================演示step的状态检查-开始=======================
 jobs:
   test-code:
     runs-on: ubuntu-latest
@@ -38,22 +66,13 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v5
       - name: install requirements
-        run: pip install -r requirements.txt
+        run: pip install -r requirements.txtt
       - name: run py test
         run: pytest --cov-report html:htmlcov --cov-report term --cov=project test
       - name: upload test reports
         uses: actions/upload-artifact@v4
+        if: ${{ failure() }} # TODO: 表示：在当前job中，在当前step，任意一个之前step失败，都会执行当前step
         with:
           name: test-report
           path: htmlcov/
-  
-  deploy:
-    runs-on: ubuntu-latest
-    if: ${{ always() }} # 表示无论test-code是否执行完成和是否执行成功，当前Job都会执行
-    needs: test-code  #  表示test-code任务执行结束并且执行成功，deploy任务才会去执行
-    steps:
-      - name: checkout code
-        uses: actions/checkout@v5
-      - name: deploy code
-        run: echo "deploy........."
-# ================演示Job的状态检查-结束=======================
+# ================演示step的状态检查-结束=======================
