@@ -59,20 +59,46 @@ on:
 # ================演示Job的状态检查-结束=======================
 
 # ================演示step的状态检查-开始=======================
+# jobs:
+#   test-code:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: checkout code
+#         uses: actions/checkout@v5
+#       - name: install requirements
+#         run: pip install -r requirements.txt
+#       - name: run py test
+#         run: pytest --cov-report html:htmlcov --cov-report term --cov=project test
+#         id: run-py-test
+#       - name: upload test reports
+#         uses: actions/upload-artifact@v4
+#         if: ${{ failure() }} # 表示：在当前job中，在当前step，任意一个之前step失败，都会执行当前step
+#         with:
+#           name: test-report
+#           path: htmlcov/
+# ================演示step的状态检查-结束=======================
+
+# ================演示matrix的使用-开始=======================
 jobs:
   test-code:
     runs-on: ubuntu-latest
+    strategy: # matrix的核心配置节点
+      matrix: 
+        py-version: ['3.8','3.9','3.10']  # 定义matrix变量
     steps:
       - name: checkout code
         uses: actions/checkout@v5
+      - uses: actions/setup-python@v6  # 使用自定义版本的python版本
+        with:
+            python-version: ${{ py-version }} # 引用matrix变量进行循环生成job
       - name: install requirements
-        run: pip install -r requirements.txtt
+        run: pip install -r requirements.txt
       - name: run py test
         run: pytest --cov-report html:htmlcov --cov-report term --cov=project test
+        id: run-py-test
       - name: upload test reports
         uses: actions/upload-artifact@v4
-        if: ${{ failure() }} # TODO: 表示：在当前job中，在当前step，任意一个之前step失败，都会执行当前step
         with:
-          name: test-report
+          name: test-report-${{ py-version }}
           path: htmlcov/
-# ================演示step的状态检查-结束=======================
+# ================演示matrix的使用-结束=======================
